@@ -171,27 +171,28 @@ async def on_message(message: discord.Message):
 @bot.command(name="help")
 async def help_cmd(ctx: commands.Context):
     data = load_data()
-    if not has_bot_permission(ctx.author, data):
-        try:
-            return await ctx.send(components=v2_err("❌ You don't have permission to use this command."), flags=V2, delete_after=5)
-        except Exception:
-            return await ctx.send("❌ You don't have permission to use this command.", delete_after=5)
-
-    body = (
-        "**Permission Commands**\n"
-        "`-perms give @user` — Give a user bot permissions\n"
-        "`-perms remove @user` — Remove a user's bot permissions\n"
-        "`-perms list` — List users with bot permissions\n\n"
-        "**Embed Command**\n"
-        "`-embed #channel message` — Send a transparent embed to a channel\n\n"
-        "**Owner Commands**\n"
-        "`-addowner @user` — Add a new bot owner\n"
-        "`-removeowner @user` — Remove a bot owner\n"
-        "`-owners` — List all bot owners\n\n"
+    everyone_section = (
         "**For Everyone**\n"
-        "`-afk reason` — Set yourself as AFK\n\n"
-        f"-# {BOT_STATUS}"
+        "`-afk [reason]` — Set yourself as AFK\n"
+        "`-help` — Show this command list\n"
     )
+    if has_bot_permission(ctx.author, data):
+        body = (
+            "**Permission Commands**\n"
+            "`-perms give @user` — Give a user bot permissions\n"
+            "`-perms remove @user` — Remove a user's bot permissions\n"
+            "`-perms list` — List users with bot permissions\n\n"
+            "**Embed Command**\n"
+            "`-embed #channel message` — Send a transparent V2 message to a channel\n\n"
+            "**Owner Commands**\n"
+            "`-addowner @user` — Add a new bot owner\n"
+            "`-removeowner @user` — Remove a bot owner\n"
+            "`-owners` — List all bot owners\n\n"
+            + everyone_section +
+            f"\n-# {BOT_STATUS}"
+        )
+    else:
+        body = everyone_section + f"\n-# {BOT_STATUS}"
     try:
         await ctx.send(components=v2_title("Bot Commands", body), flags=V2)
     except Exception as e:
@@ -199,27 +200,30 @@ async def help_cmd(ctx: commands.Context):
         await ctx.send(body)
 
 @bot.tree.command(name="help", description="Show all bot commands")
-@discord.app_commands.default_permissions(manage_guild=True)
 async def help_slash(interaction: discord.Interaction):
     data = load_data()
-    if not has_bot_permission(interaction.user, data):
-        return await interaction.response.send_message(components=v2_err("❌ You don't have permission to use this command."), flags=V2_EPH)
-
-    body = (
-        "**Permission Commands**\n"
-        "`/perms give @user` — Give a user bot permissions\n"
-        "`/perms remove @user` — Remove a user's bot permissions\n"
-        "`/perms list` — List users with bot permissions\n\n"
-        "**Embed Command**\n"
-        "`/embed #channel message` — Send a transparent embed to a channel\n\n"
-        "**Owner Commands**\n"
-        "`/addowner @user` — Add a new bot owner\n"
-        "`/removeowner @user` — Remove a bot owner\n"
-        "`/owners` — List all bot owners\n\n"
+    everyone_section = (
         "**For Everyone**\n"
-        "`/afk reason` — Set yourself as AFK\n\n"
-        f"-# {BOT_STATUS}"
+        "`/afk [reason]` — Set yourself as AFK\n"
+        "`/help` — Show this command list\n"
     )
+    if has_bot_permission(interaction.user, data):
+        body = (
+            "**Permission Commands**\n"
+            "`/perms give @user` — Give a user bot permissions\n"
+            "`/perms remove @user` — Remove a user's bot permissions\n"
+            "`/perms list` — List users with bot permissions\n\n"
+            "**Embed Command**\n"
+            "`/embed #channel message` — Send a transparent V2 message to a channel\n\n"
+            "**Owner Commands**\n"
+            "`/addowner @user` — Add a new bot owner\n"
+            "`/removeowner @user` — Remove a bot owner\n"
+            "`/owners` — List all bot owners\n\n"
+            + everyone_section +
+            f"\n-# {BOT_STATUS}"
+        )
+    else:
+        body = everyone_section + f"\n-# {BOT_STATUS}"
     await interaction.response.send_message(components=v2_title("Bot Commands", body), flags=V2_EPH)
 
 # ─── AFK ──────────────────────────────────────────────────────────────────────
