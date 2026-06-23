@@ -192,6 +192,7 @@ async def help_cmd(ctx: commands.Context):
     await ctx.send(components=v2_title("Bot Commands", body), flags=V2)
 
 @bot.tree.command(name="help", description="Show all bot commands")
+@discord.app_commands.default_permissions(manage_guild=True)
 async def help_slash(interaction: discord.Interaction):
     data = load_data()
     if not has_bot_permission(interaction.user, data):
@@ -231,6 +232,7 @@ async def afk_cmd(ctx: commands.Context, *, reason: str = "No reason provided"):
 
 @bot.tree.command(name="afk", description="Set yourself as AFK")
 @discord.app_commands.describe(reason="Your AFK reason")
+@discord.app_commands.default_permissions(send_messages=True)
 async def afk_slash(interaction: discord.Interaction, reason: str = "No reason provided"):
     data = load_data()
     uid = str(interaction.user.id)
@@ -310,6 +312,7 @@ async def perms_cmd(ctx: commands.Context, action: str = None, member: discord.M
 
 @bot.tree.command(name="perms", description="Manage bot permissions (owners only)")
 @discord.app_commands.describe(action="give / remove / list", member="The user to give/remove permissions from")
+@discord.app_commands.default_permissions(administrator=True)
 async def perms_slash(interaction: discord.Interaction, action: str, member: discord.Member = None):
     data = load_data()
     if not is_owner(interaction.user, data):
@@ -378,6 +381,7 @@ async def embed_cmd(ctx: commands.Context, channel: discord.TextChannel = None, 
 
 @bot.tree.command(name="embed", description="Send a transparent Component V2 message to a channel")
 @discord.app_commands.describe(channel="Channel to send to", message="The message content")
+@discord.app_commands.default_permissions(manage_guild=True)
 async def embed_slash(interaction: discord.Interaction, channel: discord.TextChannel, message: str):
     data = load_data()
     if not has_bot_permission(interaction.user, data):
@@ -432,6 +436,7 @@ async def owners_cmd(ctx: commands.Context):
 
 @bot.tree.command(name="addowner", description="Add a new bot owner (owners only)")
 @discord.app_commands.describe(member="User to make a bot owner")
+@discord.app_commands.default_permissions(administrator=True)
 async def addowner_slash(interaction: discord.Interaction, member: discord.Member):
     data = load_data()
     if not is_owner(interaction.user, data):
@@ -446,6 +451,7 @@ async def addowner_slash(interaction: discord.Interaction, member: discord.Membe
 
 @bot.tree.command(name="removeowner", description="Remove a bot owner (owners only)")
 @discord.app_commands.describe(member="Owner to remove")
+@discord.app_commands.default_permissions(administrator=True)
 async def removeowner_slash(interaction: discord.Interaction, member: discord.Member):
     data = load_data()
     if not is_owner(interaction.user, data):
@@ -461,6 +467,7 @@ async def removeowner_slash(interaction: discord.Interaction, member: discord.Me
     await interaction.response.send_message(components=v2(f"✅ **{member.display_name}** has been removed as a bot owner."), flags=V2)
 
 @bot.tree.command(name="owners", description="List all bot owners")
+@discord.app_commands.default_permissions(manage_guild=True)
 async def owners_slash(interaction: discord.Interaction):
     data = load_data()
     if not has_bot_permission(interaction.user, data):
