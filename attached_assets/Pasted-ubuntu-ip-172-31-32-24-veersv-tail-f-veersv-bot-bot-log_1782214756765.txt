@@ -1,0 +1,43 @@
+ubuntu@ip-172-31-32-24:~/veersv$ tail -f ~/veersv/bot/bot.log
+TypeError: 'is_components_v2' is not a valid flag name.
+[Tue Jun 23 11:38:42 UTC 2026] Bot crashed! Restarting in 5s...
+[Tue Jun 23 11:38:47 UTC 2026] Starting bot...
+Traceback (most recent call last):
+  File "/home/ubuntu/veersv/bot/main.py", line 37, in <module>
+    V2          = discord.MessageFlags(is_components_v2=True)
+  File "/home/ubuntu/veersv/bot/venv/lib/python3.14/site-packages/discord/flags.py", line 170, in __init__
+    raise TypeError(f'{key!r} is not a valid flag name.')
+TypeError: 'is_components_v2' is not a valid flag name.
+[Tue Jun 23 11:38:47 UTC 2026] Bot crashed! Restarting in 5s...
+[Tue Jun 23 11:38:52 UTC 2026] Starting bot...
+Traceback (most recent call last):
+  File "/home/ubuntu/veersv/bot/main.py", line 37, in <module>
+    V2          = discord.MessageFlags(is_components_v2=True)
+  File "/home/ubuntu/veersv/bot/venv/lib/python3.14/site-packages/discord/flags.py", line 170, in __init__
+    raise TypeError(f'{key!r} is not a valid flag name.')
+TypeError: 'is_components_v2' is not a valid flag name.
+[Tue Jun 23 11:38:53 UTC 2026] Bot crashed! Restarting in 5s...
+[Tue Jun 23 11:38:58 UTC 2026] Starting bot...
+Traceback (most recent call last):
+  File "/home/ubuntu/veersv/bot/main.py", line 37, in <module>
+    V2          = discord.MessageFlags(is_components_v2=True)
+  File "/home/ubuntu/veersv/bot/venv/lib/python3.14/site-packages/discord/flags.py", line 170, in __init__
+    raise TypeError(f'{key!r} is not a valid flag name.')
+TypeError: 'is_components_v2' is not a valid flag name.
+[Tue Jun 23 11:38:58 UTC 2026] Bot crashed! Restarting in 5s...
+[Tue Jun 23 11:39:03 UTC 2026] Starting bot...
+Traceback (most recent call last):
+  File "/home/ubuntu/veersv/bot/main.py", line 37, in <module>
+    V2          = discord.MessageFlags(is_components_v2=True)
+  File "/home/ubuntu/veersv/bot/venv/lib/python3.14/site-packages/discord/flags.py", line 170, in __init__
+    raise TypeError(f'{key!r} is not a valid flag name.')
+TypeError: 'is_components_v2' is not a valid flag name.
+[Tue Jun 23 11:39:03 UTC 2026] Bot crashed! Restarting in 5s...
+[Tue Jun 23 11:39:08 UTC 2026] Starting bot...
+Traceback (most recent call last):
+  File "/home/ubuntu/veersv/bot/main.py", line 37, in <module>
+    V2          = discord.MessageFlags(is_components_v2=True)
+  File "/home/ubuntu/veersv/bot/venv/lib/python3.14/site-packages/discord/flags.py", line 170, in __init__
+    raise TypeError(f'{key!r} is not a valid flag name.')
+TypeError: 'is_components_v2' is not a valid flag name.
+[Tue Jun 23 11:39:09 UTC 2026] Bot crashed! Restarting in 5s...
