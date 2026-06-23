@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+  bot:
+    build: .
+    restart: always
+    environment:
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
+    volumes:
+      - ./data.json:/app/data.json
