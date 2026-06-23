@@ -68,7 +68,7 @@ async def on_ready():
     print(f"✅ Logged in as {bot.user} ({bot.user.id})")
     await bot.change_presence(
         activity=discord.CustomActivity(name=BOT_STATUS),
-        status=discord.Status.online
+        status=discord.Status.idle
     )
 
     # Step 1 — Clear any old guild-specific slash commands from every guild
