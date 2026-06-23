@@ -1,0 +1,38 @@
+note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.
+hint: See PEP 668 for the detailed specification.
+ubuntu@ip-172-31-32-24:~/veersv/bot$ cd ~/veersv/bot && sudo apt update -y && sudo apt install -y python3 python3-pip ffmpeg libopus-dev libopus0 && pip3 install -r requirements.txt && nohup python3 main.py > bot.log 2>&1 &
+[1] 19475
+Hit:1 http://eu-north-1.ec2.archive.ubuntu.com/ubuntu resolute InRelease
+Hit:2 http://eu-north-1.ec2.archive.ubuntu.com/ubuntu resolute-updates InRelease
+Hit:3 http://eu-north-1.ec2.archive.ubuntu.com/ubuntu resolute-backports InRelease
+Hit:4 http://security.ubuntu.com/ubuntu resolute-security InRelease
+Hit:5 https://download.docker.com/linux/ubuntu resolute InRelease
+Hit:6 https://deb.nodesource.com/node_20.x nodistro InRelease
+4 packages can be upgraded. Run 'apt list --upgradable' to see them.
+python3 is already the newest version (3.14.3-0ubuntu2).
+python3-pip is already the newest version (25.1.1+dfsg-1ubuntu2).
+ffmpeg is already the newest version (7:8.0.1-3ubuntu2).
+libopus-dev is already the newest version (1.6.1-1).
+libopus0 is already the newest version (1.6.1-1).
+Summary:
+  Upgrading: 0, Installing: 0, Removing: 0, Not Upgrading: 4
+error: externally-managed-environment
+
+× This environment is externally managed
+╰─> To install Python packages system-wide, try apt install
+    python3-xyz, where xyz is the package you are trying to
+    install.
+
+    If you wish to install a non-Debian-packaged Python package,
+    create a virtual environment using python3 -m venv path/to/venv.
+    Then use path/to/venv/bin/python and path/to/venv/bin/pip. Make
+    sure you have python3-full installed.
+
+    If you wish to install a non-Debian packaged Python application,
+    it may be easiest to use pipx install xyz, which will manage a
+    virtual environment for you. Make sure you have pipx installed.
+
+    See /usr/share/doc/python3.14/README.venv for more information.
+
+note: If you believe this is a mistake, please contact your Python installation or OS distribution provider. You can override this, at the risk of breaking your Python installation or OS, by passing --break-system-packages.
+hint: See PEP 668 for the detailed specification.
