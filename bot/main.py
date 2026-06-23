@@ -70,11 +70,26 @@ async def on_ready():
         activity=discord.CustomActivity(name=BOT_STATUS),
         status=discord.Status.online
     )
+
+    # Step 1 — Clear any old guild-specific slash commands from every guild
+    # (old bots often register per-guild commands that persist even after bot changes)
+    for guild in bot.guilds:
+        try:
+            bot.tree.clear_commands(guild=guild)
+            await bot.tree.sync(guild=guild)
+        except Exception as e:
+            print(f"⚠️  Could not clear guild commands for {guild.name}: {e}")
+    print(f"🗑️  Cleared old guild-specific slash commands in {len(bot.guilds)} guild(s)")
+
+    # Step 2 — Sync all new global slash commands to Discord.
+    # discord.py's sync() pushes the current local tree (all our @bot.tree.command decorators)
+    # globally and automatically removes any old commands that are no longer defined.
     try:
         synced = await bot.tree.sync()
-        print(f"✅ Synced {len(synced)} slash commands")
+        print(f"✅ Synced {len(synced)} slash commands: {[c.name for c in synced]}")
     except Exception as e:
         print(f"❌ Slash sync error: {e}")
+
     keep_in_vc.start()
 
 # ─── KEEP BOT IN VOICE CHANNEL ───────────────────────────────────────────────
