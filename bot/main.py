@@ -33,17 +33,9 @@ def is_owner(member: discord.Member, data: dict) -> bool:
     return member.id in data.get("owners", list(OWNERS))
 
 # ─── COMPONENT V2 BUILDERS ────────────────────────────────────────────────────
-# MessageFlags for Component V2
-# is_components_v2 was added in discord.py 2.5 — fall back to raw bits on older versions
-try:
-    V2      = discord.MessageFlags(is_components_v2=True)
-    V2_EPH  = discord.MessageFlags(is_components_v2=True, ephemeral=True)
-except TypeError:
-    # is_components_v2 = bit 15 (32768), ephemeral = bit 6 (64)
-    V2      = discord.MessageFlags()
-    V2.value = 1 << 15
-    V2_EPH  = discord.MessageFlags()
-    V2_EPH.value = (1 << 15) | (1 << 6)
+# MessageFlags for Component V2 (requires discord.py >= 2.5)
+V2          = discord.MessageFlags(is_components_v2=True)
+V2_EPH      = discord.MessageFlags(is_components_v2=True, ephemeral=True)
 
 def v2(text: str) -> list:
     """Fully transparent Component V2 container — no accent color strip."""
