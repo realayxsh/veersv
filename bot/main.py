@@ -172,7 +172,10 @@ async def on_message(message: discord.Message):
 async def help_cmd(ctx: commands.Context):
     data = load_data()
     if not has_bot_permission(ctx.author, data):
-        return await ctx.send(components=v2_err("❌ You don't have permission to use this command."), flags=V2, delete_after=5)
+        try:
+            return await ctx.send(components=v2_err("❌ You don't have permission to use this command."), flags=V2, delete_after=5)
+        except Exception:
+            return await ctx.send("❌ You don't have permission to use this command.", delete_after=5)
 
     body = (
         "**Permission Commands**\n"
@@ -189,7 +192,11 @@ async def help_cmd(ctx: commands.Context):
         "`-afk reason` — Set yourself as AFK\n\n"
         f"-# {BOT_STATUS}"
     )
-    await ctx.send(components=v2_title("Bot Commands", body), flags=V2)
+    try:
+        await ctx.send(components=v2_title("Bot Commands", body), flags=V2)
+    except Exception as e:
+        print(f"[V2 ERROR] help command: {e}")
+        await ctx.send(body)
 
 @bot.tree.command(name="help", description="Show all bot commands")
 @discord.app_commands.default_permissions(manage_guild=True)
@@ -481,14 +488,24 @@ async def owners_slash(interaction: discord.Interaction):
 async def on_command_error(ctx: commands.Context, error):
     if isinstance(error, commands.CommandNotFound):
         return
+    print(f"[CMD ERROR] {ctx.command} — {type(error).__name__}: {error}")
+    msg = None
     if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send(components=v2_err(f"❌ Missing argument: `{error.param.name}`"), flags=V2, delete_after=8)
+        msg = f"❌ Missing argument: `{error.param.name}`"
     elif isinstance(error, commands.MemberNotFound):
-        await ctx.send(components=v2_err("❌ User not found. Please mention a valid server member."), flags=V2, delete_after=8)
+        msg = "❌ User not found. Please mention a valid server member."
     elif isinstance(error, commands.BadArgument):
-        await ctx.send(components=v2_err("❌ Invalid argument. Please check your command usage."), flags=V2, delete_after=8)
+        msg = "❌ Invalid argument. Please check your command usage."
     else:
-        print(f"[ERROR] {type(error).__name__}: {error}")
+        msg = f"❌ An error occurred: `{type(error).__name__}: {error}`"
+    try:
+        await ctx.send(components=v2_err(msg), flags=V2, delete_after=10)
+    except Exception as e:
+        print(f"[SEND ERROR] Could not send error message: {e}")
+        try:
+            await ctx.send(msg, delete_after=10)
+        except Exception:
+            pass
 
 # ─── RUN ──────────────────────────────────────────────────────────────────────
 if __name__ == "__main__":
